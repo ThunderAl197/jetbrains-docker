@@ -22,5 +22,5 @@ RUN set -xe; \
     chmod +x /usr/bin/phpstorm-inspect; \
     echo -e '#!/usr/bin/env sh\n/opt/phpstorm/bin/format.sh $@' > /usr/bin/phpstorm-format; \
     chmod +x /usr/bin/phpstorm-format; \
-    phpstorm installPlugins org.jetbrains.plugins.vue;
+    phpstorm installPlugins org.jetbrains.plugins.vue com.intellij.lang.jsgraphql;
 
