@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.source=https://github.com/ThunderAl197/jetbrains-
 RUN set -xe; \
     mkdir -p /opt/phpstorm; \
     cd /opt/phpstorm; \
-    microdnf install -y gzip tar curl git; \
+    microdnf install -y gzip tar curl git freetype fontconfig; \
     microdnf clean all; \
     curl -s "https://download-cdn.jetbrains.com/webide/PhpStorm-$JETBRAINS_VERSION.tar.gz" -o jetbrains.tar.gz; \
     tar -xvzf jetbrains.tar.gz; \
@@ -21,5 +21,6 @@ RUN set -xe; \
     echo -e '#!/usr/bin/env sh\n/opt/phpstorm/bin/inspect.sh $@' > /usr/bin/phpstorm-inspect; \
     chmod +x /usr/bin/phpstorm-inspect; \
     echo -e '#!/usr/bin/env sh\n/opt/phpstorm/bin/format.sh $@' > /usr/bin/phpstorm-format; \
-    chmod +x /usr/bin/phpstorm-format;
+    chmod +x /usr/bin/phpstorm-format; \
+    phpstorm installPlugins org.jetbrains.plugins.vue;
 

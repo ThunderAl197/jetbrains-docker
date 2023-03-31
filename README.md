@@ -12,7 +12,22 @@ Note: You **MUST** have JetBrains licence to run these containers.
 |----------|----------|-----------------------------------------|
 | PhpStorm | 2022.3.3 | `thunderal/jetbrains:phpstorm-2022.3.3` |
 
+### Pre-installed plugins
+
+PhpStorm 2022.3.3:
+
+* Vue *org.jetbrains.plugins.vue*
+* Graphql *com.intellij.lang.jsgraphql*
+
 ## Usage
+
+### Licence
+
+To pass a licence key to container mount `*.key` (not activation code) to
+`/root/.config/JetBrains/<ide><version>/<ide>.key`
+(For phpstorm2022.3.3 it will be `/root/.config/JetBrains/PhpStorm2022.3/phpstorm.key`).
+
+If you are using licence server, you can pass licence server url via `JETBRAINS_LICENSE_SERVER` environment variable.
 
 ### Related commands
 
@@ -24,3 +39,16 @@ Note: You **MUST** have JetBrains licence to run these containers.
 | `idename-format`            | Run code formatter      |
 
 Note: Replace `idename` with your ide name, ex: `phpstorm`, `phpstorm-inspect`, `phpstorm-format`
+
+### Check code formatting
+
+It will exit with non-zero exit code if at least one file is not formatted properly.
+([see doc](https://www.jetbrains.com/help/idea/command-line-formatter.html))
+
+```bash
+docker run --rm -it \
+  -v "phpstorm.key:/root/.config/JetBrains/PhpStorm2022.3/phpstorm.key" \
+  -v "/my-project-path:/code" \
+  thunderal/jetbrains:phpstorm-2022.3.3 \
+  phpstorm-format -settings /code/code-style-profile.xml -dry -r /code
+```
